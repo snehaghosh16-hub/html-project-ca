@@ -1,0 +1,229 @@
+.<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Art Gallery Exhibition website displaying famous paintings, artist records, gallery spaces, and exhibition catalogue.">
+  <meta name="keywords" content="Art Gallery, Exhibition Catalogue, Famous Paintings, Artists, Gallery Spaces">
+  <title>Art Gallery Exhibition</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header with SVG Logo & Navigation -->
+  <header class="site-header">
+    <div class="brand">
+      <svg width="40" height="42" viewBox="0 0 42 42" aria-label="Gallery Logo">
+        <rect x="2" y="2" width="38" height="38" rx="6" fill="#d97706" stroke="#ffffff" stroke-width="2"></rect>
+        <circle cx="16" cy="16" r="5" fill="#fef3c7"></circle>
+        <polygon points="8,34 20,18 28,28 34,22 34,34" fill="#1e293b"></polygon>
+      </svg>
+      <div>
+        <h1>Art Gallery Exhibition</h1>
+        <p>Annual Art Exhibition & Digital Catalogue</p>
+      </div>
+    </div>
+
+    <nav aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#artist-section">Artists</a></li>
+        <li><a href="#spaces">Gallery Spaces</a></li>
+        <li><a href="#assignment">Assignments</a></li>
+        <li><a href="#enquiry">Enquiry</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero">
+      <h2>Welcome to the <mark>2026 Art Exhibition</mark></h2>
+      <p>Explore iconic <strong>paintings</strong>, manage <em>artist records</em>, and schedule exhibitions in one place.</p>
+      <a href="#catalogue" class="btn">Explore Exhibition Catalogue</a>
+    </section>
+
+    <!-- 1. Exhibition Catalogue (Art Display) -->
+    <section id="catalogue" class="section">
+      <h2>Exhibition Catalogue & Art Display</h2>
+      <p class="section-intro">Browse famous masterpieces and listed artworks, or search by painting title or artist name.</p>
+
+      <div class="search-bar">
+        <label for="searchInput">Search Artwork:</label>
+        <input type="text" id="searchInput" placeholder="Type painting or artist name..." onkeyup="searchArtwork()">
+      </div>
+
+      <div id="catalogueGrid" class="grid-cards"></div>
+    </section>
+
+    <!-- 2. Artist Record & Submit Artist Artwork -->
+    <section id="artist-section" class="section alt-bg">
+      <h2>Artist Record & List Your Painting</h2>
+      <p class="section-intro">Artists can add their bio and list a painting, or remove existing artist records below.</p>
+
+      <div class="two-col">
+        <!-- Artist Bio & Painting Form -->
+        <article class="card-box">
+          <h3>Submit Artist Profile & Artwork</h3>
+          <form id="artworkForm" onsubmit="addArtistArtwork(event)">
+            <fieldset>
+              <legend>Artist & Painting Details</legend>
+
+              <label for="artistName">Artist Name:</label>
+              <input type="text" id="artistName" placeholder="e.g. Meera Sharma" required>
+
+              <label for="artistBio">About Artist (Short Bio):</label>
+              <textarea id="artistBio" rows="2" placeholder="Write about your art style and background..." required></textarea>
+
+              <label for="artTitle">Painting Title:</label>
+              <input type="text" id="artTitle" placeholder="e.g. Golden Horizon" required>
+
+              <label for="artMedium">Medium:</label>
+              <select id="artMedium" required>
+                <option value="Oil on Canvas">Oil on Canvas</option>
+                <option value="Acrylic">Acrylic</option>
+                <option value="Watercolor">Watercolor</option>
+                <option value="Tempera & Mural">Tempera & Mural</option>
+                <option value="Woodblock Print">Woodblock Print</option>
+              </select>
+
+              <label for="artPrice">Price (INR):</label>
+              <input type="number" id="artPrice" min="500" placeholder="e.g. 12000" required>
+
+              <label for="artSpace">Preferred Gallery Space:</label>
+              <select id="artSpace" required>
+                <option value="Hall A - Main Wing">Hall A - Main Wing</option>
+                <option value="Hall B - Modern Loft">Hall B - Modern Loft</option>
+                <option value="Hall C - Heritage Room">Hall C - Heritage Room</option>
+              </select>
+
+              <label for="artImage">Image URL (Optional):</label>
+              <input type="url" id="artImage" placeholder="https://example.com/painting.jpg">
+
+              <button type="submit" class="btn">List Painting</button>
+              <p id="artworkMsg" class="status-msg"></p>
+            </fieldset>
+          </form>
+        </article>
+
+        <!-- Artist Records Table with Remove Option -->
+        <article class="card-box">
+          <h3>Registered Artist Records</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Artist Name</th>
+                  <th>About Artist</th>
+                  <th>Listed Artwork</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="artistRecordBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. Gallery Spaces & Exhibition Creation -->
+    <section id="spaces" class="section">
+      <h2>Gallery Spaces & Exhibition Creation</h2>
+      <p class="section-intro">Available exhibition halls and tool to create or remove scheduled exhibitions.</p>
+
+      <div class="grid-cards">
+        <article class="space-card">
+          <h3>Hall A - Main Wing</h3>
+          <p><strong>Capacity:</strong> 40 Paintings</p>
+          <p><strong>Lighting:</strong> Natural Skylight + Warm LEDs</p>
+          <p>Best for Renaissance classics and large oil paintings.</p>
+        </article>
+
+        <article class="space-card">
+          <h3>Hall B - Modern Loft</h3>
+          <p><strong>Capacity:</strong> 25 Paintings</p>
+          <p><strong>Lighting:</strong> Adjustable Track Spotlights</p>
+          <p>Designed for Post-Impressionist and Expressionist works.</p>
+        </article>
+
+        <article class="space-card">
+          <h3>Hall C - Heritage Room</h3>
+          <p><strong>Capacity:</strong> 30 Paintings</p>
+          <p><strong>Lighting:</strong> Soft Gallery Ambience</p>
+          <p>Ideal for portraits, prints, and traditional masterpieces.</p>
+        </article>
+      </div>
+
+      <div class="two-col spacing-top">
+        <article class="card-box">
+          <h3>Create New Exhibition</h3>
+          <form id="exhibitionForm" onsubmit="createExhibition(event)">
+            <label for="exhTitle">Exhibition Title:</label>
+            <input type="text" id="exhTitle" placeholder="e.g. Monsoon Colors 2026" required>
+
+            <label for="exhSpace">Select Gallery Space:</label>
+            <select id="exhSpace" required>
+              <option value="Hall A - Main Wing">Hall A - Main Wing</option>
+              <option value="Hall B - Modern Loft">Hall B - Modern Loft</option>
+              <option value="Hall C - Heritage Room">Hall C - Heritage Room</option>
+            </select>
+
+            <label for="exhDate">Start Date:</label>
+            <input type="date" id="exhDate" required>
+
+            <button type="submit" class="btn">Create Exhibition</button>
+            <p id="exhMsg" class="status-msg"></p>
+          </form>
+        </article>
+
+        <!-- Scheduled Exhibitions List with Remove Option -->
+        <article class="card-box">
+          <h3>Scheduled Exhibitions</h3>
+          <ol id="exhibitionList" class="exh-list"></ol>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Artist Assignment Table -->
+    <section id="assignment" class="section alt-bg">
+      <h2>Artist Assignment Schedule</h2>
+      <p class="section-intro">Live record showing which artist and artwork is assigned to each exhibition and gallery space.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Artist</th>
+              <th>Artwork Title</th>
+              <th>Exhibition</th>
+              <th>Assigned Gallery Space</th>
+            </tr>
+          </thead>
+          <tbody id="assignmentBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. Art Enquiry & Visitor Info (No Map / No Audio) -->
+    <section id="enquiry" class="section">
+      <h2>Art Enquiry & Visitor Information</h2>
+
+      <div class="two-col">
+        <article class="card-box">
+          <h3>Send an Art Enquiry</h3>
+          <form id="enquiryForm" onsubmit="submitEnquiry(event)">
+            <label for="enqName">Your Name:</label>
+            <input type="text" id="enqName" placeholder="Enter your full name" required>
+
+            <label for="enqEmail">Your Email:</label>
+            <input type="email" id="enqEmail" placeholder="you@example.com" required>
+
+            <label for="enqArt">Artwork / Artist of Interest:</label>
+            <input type="text" id="enqArt" placeholder="e.g. The Starry Night" required>
+
+            <label for="enqMessage">Message:</label>
+            <textarea id="enqMessage" rows="3" placeholder="Ask about painting details, price, or gallery viewing..." required></textarea>
+
+            <button type="submit" class="btn">Submit Enquiry</button>
+            <p id="enqMsg" class="status-msg"></p>
+          </form>
